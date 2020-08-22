@@ -9,20 +9,24 @@ ENV DOCKER_CHANNEL=stable \
 
 # Install Docker, Docker Compose, Docker Squash
 
-RUN apt-get --update --no-cache add \
+USER root
+
+RUN apt-get update
+
+RUN apt-get install -y  \
         bash \
         curl \
-        device-mapper \
-        py-pip \
+        python3-pip \
         iptables \
-        ca-certificates \
-        && \
-    apt-get upgrade && \
-    curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" | tar zx && \
-    mv /docker/* /bin/ && chmod +x /bin/docker* && \
-    pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \
+        ca-certificates
+
+RUN    apt-get update
+RUN curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" | tar zx
+RUN ls
+RUN    mv docker/* /bin/ && chmod +x /bin/docker* && \
+    pip3 install docker-compose==${DOCKER_COMPOSE_VERSION} && \
     curl -fL "https://github.com/jwilder/docker-squash/releases/download/v${DOCKER_SQUASH}/docker-squash-linux-amd64-v${DOCKER_SQUASH}.tar.gz" | tar zx && \
-    mv /docker-squash* /bin/ && chmod +x /bin/docker-squash* && \
+    mv docker-squash* /bin/ && chmod +x /bin/docker-squash* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /root/.cache && \
-    chmod +x /bin/startdocker.sh
+    rm -rf /root/.cache
+#    chmod +x /bin/startdocker.sh
