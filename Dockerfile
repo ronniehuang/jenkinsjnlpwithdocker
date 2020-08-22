@@ -9,7 +9,7 @@ ENV DOCKER_CHANNEL=stable \
 
 # Install Docker, Docker Compose, Docker Squash
 
-RUN apk --update --no-cache add \
+RUN apt-get --update --no-cache add \
         bash \
         curl \
         device-mapper \
@@ -17,7 +17,7 @@ RUN apk --update --no-cache add \
         iptables \
         ca-certificates \
         && \
-    apk upgrade && \
+    apt-get upgrade && \
     curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" | tar zx && \
     mv /docker/* /bin/ && chmod +x /bin/docker* && \
     pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \
