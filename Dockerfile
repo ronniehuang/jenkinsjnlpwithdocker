@@ -5,7 +5,7 @@ ENV DOCKER_CHANNEL=stable \
     DOCKER_COMPOSE_VERSION=1.22.0 \
     DOCKER_SQUASH=0.2.0
 
-# COPY startdocker.sh /bin/startdocker.sh
+ COPY startdocker.sh /bin/startdocker.sh
 
 # Install Docker, Docker Compose, Docker Squash
 
@@ -29,4 +29,5 @@ RUN    mv docker/* /bin/ && chmod +x /bin/docker* && \
     mv docker-squash* /bin/ && chmod +x /bin/docker-squash* && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache
-#    chmod +x /bin/startdocker.sh
+    
+RUN chmod +x /bin/startdocker.sh
